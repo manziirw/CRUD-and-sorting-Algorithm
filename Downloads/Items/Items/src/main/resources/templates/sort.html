@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort Students</title>
+</head>
+<body>
+<h1>Sort Students</h1>
+<form action="#" th:action="@{/api/student/sort}" th:object="${sortForm}" method="get">
+    <label for="sortAlgorithm">Select Sorting Algorithm:</label>
+    <select id="sortAlgorithm" name="sortAlgorithm">
+        <option value="heap">Heap Sort</option>
+        <option value="quick">Quick Sort</option>
+        <option value="merge">Merge Sort</option>
+        <option value="radix">Radix Sort</option>
+        <option value="bucket">Bucket Sort</option>
+    </select>
+    <button type="submit">Sort</button>
+</form>
+<div th:if="${sortedStudents}">
+    <h2>Sorted Students</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <!-- Add other fields as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${sortedStudents}">
+            <td th:text="${student.id}">ID</td>
+            <td th:text="${student.name}">Name</td>
+            <td th:text="${student.email}">Email</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

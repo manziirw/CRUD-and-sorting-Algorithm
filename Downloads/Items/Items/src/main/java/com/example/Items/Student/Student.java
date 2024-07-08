@@ -1,13 +1,14 @@
 package com.example.Items.Student;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
 @Table
-public class Student {
+public class Student extends RepresentationModel<Student>{
     @Id
     @SequenceGenerator(
             name= "student_sequence",
