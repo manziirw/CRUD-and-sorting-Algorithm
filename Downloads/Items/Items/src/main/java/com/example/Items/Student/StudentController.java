@@ -1,6 +1,5 @@
 package com.example.Items.Student;
 
-
 import com.example.Items.Sorting.SortingService;
 import com.example.Items.utils.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +38,10 @@ public class StudentController {
         CollectionModel<EntityModel<Student>> collectionModel = CollectionModel.of(studentModels,
                 linkTo(methodOn(StudentController.class).getStudents()).withSelfRel(),
                 linkTo(methodOn(StudentController.class).getStudentsSortedByHeapName()).withRel("sort_heap"),
-                        linkTo(methodOn(StudentController.class).getStudentsSortedByQuickName()).withRel("sort-quick"),
-                        linkTo(methodOn(StudentController.class).getStudentsSortedByMergeName()).withRel("sort-merge"),
-                        linkTo(methodOn(StudentController.class).getStudentsSortedByRadixName()).withRel("sort-radix"),
-                        linkTo(methodOn(StudentController.class).getStudentsSortedByBucketName()).withRel("sort-bucket"));
+                linkTo(methodOn(StudentController.class).getStudentsSortedByQuickName()).withRel("sort-quick"),
+                linkTo(methodOn(StudentController.class).getStudentsSortedByMergeName()).withRel("sort-merge"),
+                linkTo(methodOn(StudentController.class).getStudentsSortedByRadixName()).withRel("sort-radix"),
+                linkTo(methodOn(StudentController.class).getStudentsSortedByBucketName()).withRel("sort-bucket"));
 
         return new CustomResponse<>("List of all students", collectionModel);
     }
@@ -66,6 +65,19 @@ public class StudentController {
                 linkTo(methodOn(StudentController.class).getStudents()).withRel("students"));
 
         return new CustomResponse<>("Student registered successfully", entityModel);
+    }
+
+    @PutMapping("/{id}")
+    public CustomResponse<EntityModel<Student>> updateStudent(@PathVariable Long id, @RequestBody Student updatedStudent) {
+        studentService.updateStudent(id, updatedStudent);
+        Student student = studentService.getStudentById(id)
+                .orElseThrow(() -> new IllegalStateException("Student not found after update"));
+
+        EntityModel<Student> entityModel = EntityModel.of(student,
+                linkTo(methodOn(StudentController.class).getStudentById(id)).withSelfRel(),
+                linkTo(methodOn(StudentController.class).getStudents()).withRel("students"));
+
+        return new CustomResponse<>("Student updated successfully", entityModel);
     }
 
     @DeleteMapping(path = "{studentId}")
