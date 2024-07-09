@@ -27,9 +27,14 @@ public class StudentConfig {
                     "David@gmail.com",
                     LocalDate.of(2003, Month.MARCH, 21)
             );
-
+            Student Alice = new Student(
+                    "Alice",
+                    27,
+                    "Alice@gmail.com",
+                    LocalDate.of(2007, Month.MARCH, 7)
+            );
             // Save students to the database
-            repository.saveAll(List.of(manzi, david));
+            repository.saveAll(List.of(manzi, david,Alice));
         };
     }
 }

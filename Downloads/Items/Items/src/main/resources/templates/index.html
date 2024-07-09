@@ -153,7 +153,7 @@
                 throw new Error('Failed to sort students');
             }
             const data = await response.json();
-            console.log('Sorted students data:', data); // Log the sorted response data
+
             if (!data || !data.data || !data.data.content) {
                 throw new Error('No sorted students found');
             }
